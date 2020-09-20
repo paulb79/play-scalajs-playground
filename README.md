@@ -2,7 +2,7 @@
 
 **Why:**
  
-Builder on the play-scalajs-barebones project this begins to port the ideas of React into ScalaJS
+Building on the [play-scalajs-barebones](https://github.com/paulb79/play-scalajs-skeleton-project) project this begins to port the ideas of React into ScalaJS
 
 ## Examples include
 

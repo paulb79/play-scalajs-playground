@@ -16,23 +16,26 @@ object SPAMain {
 
   case class Props( /* TODO */ )
 
-  sealed trait Pages
-  case object Home extends Pages
+  sealed trait Page
+  case object Home extends Page
+  case object Weather extends Page
 
-  val routerConfig = RouterConfigDsl[Pages]
+  val routerConfig = RouterConfigDsl[Page]
     .buildConfig { dsl =>
       import dsl._
       (emptyRule
         | staticRoute(root, Home) ~> render(
           <.h3("Welcome to the most amazing scalajs react app ever")
-        )).notFound(redirectToPage(Home)(SetRouteVia.HistoryReplace))
+        )
+        | staticRoute("#weather", Weather) ~> render(<.h3("Weather details")))
+        .notFound(redirectToPage(Home)(SetRouteVia.HistoryReplace))
     }
     .renderWith(layout)
 
-  def layout(c: RouterCtl[Pages], r: Resolution[Pages]) = {
+  def layout(c: RouterCtl[Page], r: Resolution[Page]) = {
     <.div(
       <.h1("Hello World"),
-      StaticNav.NoArgsNav(),
+      StaticNav.Nav(StaticNav.Props(c, r.page)),
       Welcome.Welcome("Paul"),
       Welcome.Welcome("Sarah"),
       BasicBackend.Component(),
