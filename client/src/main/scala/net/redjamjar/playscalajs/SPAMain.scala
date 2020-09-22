@@ -14,11 +14,9 @@ object SPAMain {
   @JSExportTopLevel("PlayScalaJSReactBoilerplateApp")
   protected def getInstance(): this.type = this
 
-  case class Props( /* TODO */ )
-
   sealed trait Page
   case object Home extends Page
-  case object Weather extends Page
+  case object WeatherLocation extends Page
 
   val routerConfig = RouterConfigDsl[Page]
     .buildConfig { dsl =>
@@ -27,7 +25,9 @@ object SPAMain {
         | staticRoute(root, Home) ~> render(
           <.h3("Welcome to the most amazing scalajs react app ever")
         )
-        | staticRoute("#weather", Weather) ~> render(<.h3("Weather details")))
+        | staticRoute("#weather", WeatherLocation) ~> render(
+          Weather(CityTemp("London", 25))
+        ))
         .notFound(redirectToPage(Home)(SetRouteVia.HistoryReplace))
     }
     .renderWith(layout)
@@ -40,6 +40,7 @@ object SPAMain {
       Welcome.Welcome("Sarah"),
       BasicBackend.Component(),
       Timer.Timer(),
+      TodoList.TodoApp(),
       <.div(^.cls := "container", r.render())
     )
   }

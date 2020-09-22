@@ -3,7 +3,7 @@ package net.redjamjar.playscalajs.components
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
-import net.redjamjar.playscalajs.SPAMain.{Home, Weather, Page}
+import net.redjamjar.playscalajs.SPAMain.{Home, WeatherLocation, Page}
 
 object StaticNav {
 
@@ -17,7 +17,7 @@ object StaticNav {
           <.div(
             <.ul(
               <.li(p.router.link(Home)("Home")),
-              <.li(p.router.link(Weather)("Weather"))
+              <.li(p.router.link(WeatherLocation)("Weather"))
             )
           )
         )

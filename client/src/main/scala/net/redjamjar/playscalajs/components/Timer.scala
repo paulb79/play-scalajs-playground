@@ -20,13 +20,30 @@ object Timer {
       interval = js.timers.setInterval(1000)(tick.runNow())
     }
 
+    // todo define stop
+    def stop(s: StateAccessPure[Long]): CallbackTo[Unit] = {
+      clear
+      reset(s)
+    }
+
     def clear = Callback {
       interval.foreach(js.timers.clearInterval)
       interval = js.undefined
     }
 
+    def reset(s: StateAccessPure[Long]): Callback = {
+      s.modState(_ => 0)
+    }
+
     def render(s: State): VdomNode = {
-      <.div("Seconds elpased: ", s.secondsElapsed)
+      val f =
+        $.zoomState(_.secondsElapsed)(value => _.copy(secondsElapsed = value))
+      <.div(
+        "Seconds elpased: ",
+        s.secondsElapsed,
+        <.button("Reset", ^.onClick --> reset(f)),
+        <.button("Stop", ^.onClick --> stop(f))
+      )
     }
   }
 
