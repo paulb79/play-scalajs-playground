@@ -7,7 +7,7 @@ import japgolly.scalajs.react.vdom.html_<^._
 
 case class CityTemp(cityname: String, temp: Int)
 
-object Weather {
+object WeatherComp {
 
   case class Props(model: CityTemp)
 
@@ -20,18 +20,16 @@ object Weather {
       $.modState(_.copy(city = cityValue))
     }
 
-    def handleSearch(e: ReactEventFromInput) = {
+    def handleSearch(e: ReactEventFromInput) =
       e.preventDefaultCB >>
         $.modState(s => State(city = s.city, temp = 12))
 
-      // todo do api call?
-    }
+    // todo do api call?
 
-    def render(p: Props, s: State): VdomNode = {
+    def render(p: Props, s: State): VdomNode =
       <.div(<.h1("Get Weather"), weatherForm(p, s), weatherMsg(p, s))
-    }
 
-    def weatherForm(p: Props, s: State) = {
+    def weatherForm(p: Props, s: State) =
       <.div(
         <.form(
           ^.onSubmit ==> handleSearch,
@@ -43,12 +41,10 @@ object Weather {
           <.button("Search")
         )
       )
-    }
 
-    def weatherMsg(p: Props, s: State) = {
+    def weatherMsg(p: Props, s: State) =
       <.div(<.p(s"The temperature in ${s.city} is ${s.temp} today"))
 
-    }
   }
 
   private val Component = ScalaComponent

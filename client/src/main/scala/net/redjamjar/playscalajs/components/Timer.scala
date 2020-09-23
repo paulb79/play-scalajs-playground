@@ -31,9 +31,8 @@ object Timer {
       interval = js.undefined
     }
 
-    def reset(s: StateAccessPure[Long]): Callback = {
+    def reset(s: StateAccessPure[Long]): Callback =
       s.modState(_ => 0)
-    }
 
     def render(s: State): VdomNode = {
       val f =

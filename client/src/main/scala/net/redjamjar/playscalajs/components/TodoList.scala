@@ -30,12 +30,11 @@ object TodoList {
       $.modState(_.copy(text = newValue))
     }
 
-    def handleSubmit(e: ReactEventFromInput) = {
+    def handleSubmit(e: ReactEventFromInput) =
       e.preventDefaultCB >>
         $.modState(s => State(s.items :+ s.text, ""))
-    }
 
-    def render(state: State): VdomNode = {
+    def render(state: State): VdomNode =
       <.div(
         <.h3("Todo"),
         TodoListItem(state.items),
@@ -45,7 +44,6 @@ object TodoList {
           <.button("Add ", state.items.length + 1)
         )
       )
-    }
   }
 
   val TodoApp = ScalaComponent

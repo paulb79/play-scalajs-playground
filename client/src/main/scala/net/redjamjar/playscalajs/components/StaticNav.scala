@@ -3,11 +3,9 @@ package net.redjamjar.playscalajs.components
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
-import net.redjamjar.playscalajs.SPAMain.{Home, WeatherLocation, Page}
+import net.redjamjar.playscalajs.routes.{Home, Props, Weather}
 
 object StaticNav {
-
-  final case class Props(router: RouterCtl[Page], currentLoc: Page)
 
   final class Backend($ : BackendScope[Props, Unit]) {
     def render(p: Props): VdomNode =
@@ -17,7 +15,7 @@ object StaticNav {
           <.div(
             <.ul(
               <.li(p.router.link(Home)("Home")),
-              <.li(p.router.link(WeatherLocation)("Weather"))
+              <.li(p.router.link(Weather)("Weather"))
             )
           )
         )
@@ -25,9 +23,11 @@ object StaticNav {
   }
 
   val Nav = ScalaComponent
-    .builder[Props]("MainMenu")
+    .builder[Props]("Static Navigation")
     .renderBackend[Backend]
     .build
+
+  def apply(props: Props) = Nav(props).vdomElement
 
 //  val NoArgsNav = ScalaComponent
 //    .builder[Unit]
